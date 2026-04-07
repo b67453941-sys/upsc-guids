@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graphic & Web Design – By Bhavya</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0B1220;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --muted2: rgba(255,255,255,.55);
+      --brandA:#8B5CF6;
+      --brandB:#22D3EE;
+      --brandC:#34D399;
+      --warn:#F59E0B;
+      --danger:#FB7185;
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --shadow2: 0 14px 40px rgba(0,0,0,.45);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(139,92,246,.35), transparent 55%),
+        radial-gradient(1000px 700px at 95% 0%, rgba(34,211,238,.30), transparent 52%),
+        radial-gradient(900px 700px at 20% 110%, rgba(52,211,153,.22), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 40%, #060816);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    
+    .noise:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.10;
+      animation: noiseShift 10s steps(8) infinite;
+    }
+    @keyframes noiseShift{
+      0%{ transform:translate3d(0,0,0); }
+      10%{ transform:translate3d(-2%,1%,0); }
+      20%{ transform:translate3d(-4%,-2%,0); }
+      30%{ transform:translate3d(2%,-4%,0); }
+      40%{ transform:translate3d(-1%,3%,0); }
+      50%{ transform:translate3d(-3%,2%,0); }
+      60%{ transform:translate3d(3%,1%,0); }
+      70%{ transform:translate3d(1%,-3%,0); }
+      80%{ transform:translate3d(-2%,-1%,0); }
+      90%{ transform:translate3d(2%,4%,0); }
+      100%{ transform:translate3d(0,0,0); }
+    }
+
+    .container-max{ max-width: 1180px; }
+
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 12px 36px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .grad-text{
+      background: linear-gradient(90deg, var(--brandA), var(--brandB), var(--brandC));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      padding:.8rem 1rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: .01em;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+
+    .btn-primary{
+      background: radial-gradient(120% 180% at 20% 10%, rgba(255,255,255,.20), rgba(255,255,255,.06)),
+                  linear-gradient(90deg, rgba(139,92,246,.95), rgba(34,211,238,.90));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 18px 50px rgba(34,211,238,.18);
+    }
+    .btn-primary:hover{
+      box-shadow: 0 22px 70px rgba(139,92,246,.18), 0 18px 55px rgba(34,211,238,.18);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .btn-ghost:hover{
+      background: rgba(255,255,255,.09);
+      transform: translateY(-1px);
+    }
+
+    .pill{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      border-radius:999px;
+      padding:.45rem .7rem;
+      color: var(--muted);
+    }
+
+    .section-title{
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .subtle{
+      color: var(--muted);
+    }
+
+    .navlink{
+      color: rgba(255,255,255,.78);
+      transition: color .15s ease;
+      position:relative;
+    }
+    .navlink:hover{ color: rgba(255,255,255,.96); }
+    .navlink.active{ color: rgba(255,255,255,.98); }
+    .navlink.active:after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:-10px;
+      height:2px;
+      border-radius:2px;
+      background: linear-gradient(90deg, var(--brandA), var(--brandB));
+      opacity:.9;
+    }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+    }
+
+    .icon-badge{
+      width:44px; height:44px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: radial-gradient(120% 140% at 10% 10%, rgba(255,255,255,.16), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 14px 40px rgba(0,0,0,.22);
+    }
+
+    .kpi{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .shadow-ring{
+      position:relative;
+      isolation:isolate;
+    }
+    .shadow-ring:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius: 26px;
+      background: linear-gradient(120deg, rgba(139,92,246,.55), rgba(34,211,238,.35), rgba(52,211,153,.35));
+      filter: blur(18px);
+      opacity:.55;
+      z-index:-1;
+    }
+
+
+    .blob{
+      position:absolute;
+      width: 420px; height: 420px;
+      border-radius: 999px;
+      filter: blur(50px);
+      opacity:.28;
+      transform: translate3d(0,0,0);
+      animation: floaty 10s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes floaty{
+      0%,100%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(0,-18px,0) scale(1.03); }
+    }
+
+
+    .field{
+      width:100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      padding: .85rem 1rem;
+      color: rgba(255,255,255,.92);
+      outline:none;
+      transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
+    }
+    .field:focus{
+      border-color: rgba(34,211,238,.55);
+      box-shadow: 0 0 0 4px rgba(34,211,238,.12);
+      background: rgba(255,255,255,.08);
+    }
+    .field::placeholder{ color: rgba(255,255,255,.45); }
+
+    
+    @media (prefers-reduced-motion: reduce){
+      .blob, .noise:before { animation:none !important; }
+      *{ scroll-behavior:auto !important; }
+    }
+
+    
+    html{ scroll-behavior:smooth; }
+
+    
+    .menu-panel{
+      transform: translateY(-6px);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .16s ease, transform .16s ease;
+    }
+    .menu-panel.open{
+      transform: translateY(0);
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .toast{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 60;
+      width: min(420px, calc(100vw - 32px));
+      transform: translateY(12px);
+      opacity:0;
+      pointer-events:none;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .toast.show{
+      transform: translateY(0);
+      opacity:1;
+      pointer-events:auto;
+    }
+  </style>
+</head>
+
+<body class="noise">
+
+  <div aria-hidden="true" class="blob" style="left:-120px; top:120px; background: radial-gradient(circle at 30% 30%, rgba(139,92,246,.95), rgba(139,92,246,0) 60%);"></div>
+  <div aria-hidden="true" class="blob" style="right:-160px; top:40px; background: radial-gradient(circle at 30% 30%, rgba(34,211,238,.95), rgba(34,211,238,0) 60%); animation-delay:-2.2s;"></div>
+  <div aria-hidden="true" class="blob" style="left:10%; bottom:-220px; background: radial-gradient(circle at 30% 30%, rgba(52,211,153,.95), rgba(52,211,153,0) 60%); animation-delay:-4.4s;"></div>
+
+
+  <header class="sticky top-0 z-50">
+    <div class="glass border-b border-white/10">
+      <div class="mx-auto container-max px-4 sm:px-6">
+        <div class="h-16 flex items-center justify-between">
+          <a href="#top" class="flex items-center gap-3">
+            <div class="icon-badge">
+              <span class="text-white text-lg"><i class="fa-solid fa-pen-nib"></i></span>
+            </div>
+            <div class="leading-tight">
+              <div class="font-extrabold tracking-tight">Bhavya</div>
+              <div class="text-xs text-white/60 -mt-0.5">Graphic & Web Designer</div>
+            </div>
+          </a>
+
+          <nav class="hidden md:flex items-center gap-6 text-sm">
+            <a class="navlink" href="#about">About</a>
+            <a class="navlink" href="#graphic">Graphic Design</a>
+            <a class="navlink" href="#web">Web Design</a>
+            <a class="navlink" href="#ai-tools">AI Tools</a>
+            <a class="navlink" href="#career">Career</a>
+            <a class="navlink" href="#contact">Contact</a>
+          </nav>
+
+          <div class="hidden md:flex items-center gap-3">
+            <button id="themeBtn" class="btn btn-ghost text-sm" type="button" aria-label="Toggle accent">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Accent</span>
+            </button>
+            <a href="#contact" class="btn btn-primary text-sm">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Hire Bhavya</span>
+            </a>
+          </div>
+
+          <button id="menuBtn" class="md:hidden btn btn-ghost px-3" type="button" aria-label="Open menu" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+
+    
+        <div id="menuPanel" class="menu-panel md:hidden pb-4">
+          <div class="card rounded-2xl p-3">
+            <div class="grid gap-1 text-sm">
+              <a class="px-3 py-2 rounded-xl hover:bg-white/5" href="#about">About</a>
+              <a class="px-3 py-2 rounded-xl hover:bg-white/5" href="#graphic">Graphic Design</a>
+              <a class="px-3 py-2 rounded-xl hover:bg-white/5" href="#web">Web Design</a>
+              <a class="px-3 py-2 rounded-xl hover:bg-white/5" href="#ai-tools">AI Tools</a>
+              <a class="px-3 py-2 rounded-xl hover:bg-white/5" href="#career">Career</a>
+              <a class="px-3 py-2 rounded-xl hover:bg-white/5" href="#contact">Contact</a>
+              <div class="divider my-2"></div>
+              <div class="flex gap-2">
+                <button id="themeBtnMobile" class="btn btn-ghost text-sm flex-1 justify-center" type="button">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  <span>Accent</span>
+                </button>
+                <a href="#contact" class="btn btn-primary text-sm flex-1 justify-center">
+                  <i class="fa-solid fa-paper-plane"></i>
+                  <span>Hire</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  
+  <main id="top">
+    <section class="mx-auto container-max px-4 sm:px-6 pt-10 sm:pt-14 pb-10 sm:pb-14">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="pill text-xs sm:text-sm"><i class="fa-solid fa-sparkles mr-2"></i>Modern AI-powered workflow</span>
+            <span class="pill text-xs sm:text-sm"><i class="fa-solid fa-mobile-screen mr-2"></i>Responsive, user-focused design</span>
+            <span class="pill text-xs sm:text-sm"><i class="fa-solid fa-bolt mr-2"></i>Fast, clean layouts</span>
+          </div>
+
+          <h1 class="section-title text-4xl sm:text-5xl lg:text-6xl">
+            Graphic & Web Design <span class="grad-text">By Bhavya</span>
+          </h1>
+
+          <p class="mt-4 text-base sm:text-lg subtle max-w-xl">
+            Creative graphic and web design that helps brands look premium, feel consistent, and convert better online—powered by modern AI tools for speed, quality, and effortless iteration.
+          </p>
+
+          <div class="mt-7 flex flex-col sm:flex-row gap-3">
+            <a href="#contact" class="btn btn-primary justify-center sm:justify-start">
+              <i class="fa-solid fa-briefcase"></i>
+              <span>Request a Project</span>
+            </a>
+            <a href="#graphic" class="btn btn-ghost justify-center sm:justify-start">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Explore Services</span>
+            </a>
+          </div>
+
+          <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="kpi rounded-2xl p-4">
+              <div class="text-sm text-white/60">Focus</div>
+              <div class="mt-1 font-bold">Brand + UX</div>
+            </div>
+            <div class="kpi rounded-2xl p-4">
+              <div class="text-sm text-white/60">Web</div>
+              <div class="mt-1 font-bold">SEO-ready</div>
+            </div>
+            <div class="kpi rounded-2xl p-4">
+              <div class="text-sm text-white/60">Design</div>
+              <div class="mt-1 font-bold">Clean & modern</div>
+            </div>
+            <div class="kpi rounded-2xl p-4">
+              <div class="text-sm text-white/60">AI</div>
+              <div class="mt-1 font-bold">Faster output</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shadow-ring rounded-[26px] p-[1px]">
+          <div class="card rounded-[26px] p-6 sm:p-7">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="text-sm text-white/60">Featured Capabilities</div>
+                <div class="mt-1 text-xl font-extrabold tracking-tight">Design that looks great and works.</div>
+              </div>
+              <div class="icon-badge">
+                <i class="fa-solid fa-cube text-white/90"></i>
+              </div>
+            </div>
+
+            <div class="mt-6 grid gap-3">
+              <div class="flex gap-3 items-start rounded-2xl p-4 border border-white/10 bg-white/5">
+                <div class="icon-badge" style="width:40px;height:40px;border-radius:14px;">
+                  <i class="fa-solid fa-pen-ruler"></i>
+                </div>
+                <div>
+                  <div class="font-semibold">Brand visuals</div>
+                  <div class="text-sm text-white/60">Logos, banners, social media creatives, consistent identity systems.</div>
+                </div>
+              </div>
+
+              <div class="flex gap-3 items-start rounded-2xl p-4 border border-white/10 bg-white/5">
+                <div class="icon-badge" style="width:40px;height:40px;border-radius:14px;">
+                  <i class="fa-solid fa-display"></i>
+                </div>
+                <div>
+                  <div class="font-semibold">Responsive websites</div>
+                  <div class="text-sm text-white/60">Mobile-first layouts with fast loading and clean UI/UX.</div>
+                </div>
+              </div>
+
+              <div class="flex gap-3 items-start rounded-2xl p-4 border border-white/10 bg-white/5">
+                <div class="icon-badge" style="width:40px;height:40px;border-radius:14px;">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <div>
+                  <div class="font-semibold">AI-assisted workflow</div>
+                  <div class="text-sm text-white/60">Concepts, palettes, typography pairing, quick variations and revisions.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+              <button id="copyEmailBtn" class="btn btn-ghost justify-center sm:justify-start">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copy Email</span>
+              </button>
+              <a class="btn btn-primary justify-center sm:justify-start" href="#contact">
+                <i class="fa-solid fa-message"></i>
+                <span>Contact Now</span>
+              </a>
+            </div>
+
+            <p class="mt-3 text-xs text-white/50">
+              Tip: Use the contact form to share your goals, style preferences, and timeline.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="about" class="mx-auto container-max px-4 sm:px-6 py-10 sm:py-14">
+      <div class="grid lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-5">
+          <h2 class="section-title text-3xl sm:text-4xl">About <span class="grad-text">Bhavya</span></h2>
+          <p class="mt-3 subtle">
+            Bhavya is a creative Graphic and Web Designer who uses modern AI-powered design tools to craft visually attractive,
+            responsive, and user-focused designs.
+          </p>
+          <p class="mt-3 subtle">
+            Great design helps businesses grow online by improving trust, clarity, and brand identity—turning visitors into customers
+            with consistent visuals and smooth user experience.
+          </p>
+
+          <div class="mt-6 grid sm:grid-cols-2 gap-3">
+            <div class="card rounded-2xl p-4">
+              <div class="text-sm text-white/60">Strength</div>
+              <div class="mt-1 font-semibold">Visual storytelling</div>
+              <div class="mt-2 text-sm text-white/60">Clean composition, readable typography, on-brand color systems.</div>
+            </div>
+            <div class="card rounded-2xl p-4">
+              <div class="text-sm text-white/60">Approach</div>
+              <div class="mt-1 font-semibold">AI + Design</div>
+              <div class="mt-2 text-sm text-white/60">Faster ideation, high-quality output, and effortless revisions.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="card rounded-3xl p-6 sm:p-7">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <div class="text-sm text-white/60">What you get</div>
+                <div class="mt-1 text-xl font-extrabold tracking-tight">A professional design experience</div>
+              </div>
+              <div class="hidden sm:flex items-center gap-2">
+                <span class="pill text-xs"><i class="fa-solid fa-check mr-2"></i>Modern</span>
+                <span class="pill text-xs"><i class="fa-solid fa-check mr-2"></i>Responsive</span>
+                <span class="pill text-xs"><i class="fa-solid fa-check mr-2"></i>On-brand</span>
+              </div>
+            </div>
+
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+              <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+                <div class="flex items-start gap-3">
+                  <div class="icon-badge" style="width:40px;height:40px;border-radius:14px;">
+                    <i class="fa-solid fa-compass-drafting"></i>
+                  </div>
+                  <div>
+                    <div class="font-semibold">Creative direction</div>
+                    <div class="text-sm text-white/60 mt-1">Moodboards, concepts, layout structure and hierarchy.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+                <div class="flex items-start gap-3">
+                  <div class="icon-badge" style="width:40px;height:40px;border-radius:14px;">
+                    <i class="fa-solid fa-chart-line"></i>
+                  </div>
+                  <div>
+                    <div class="font-semibold">Business impact</div>
+                    <div class="text-sm text-white/60 mt-1">Clear messaging, strong brand identity, better conversion flow.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+                <div class="flex items-start gap-3">
+                  <div class="icon-badge" style="width:40px;height:40px;border-radius:14px;">
+                    <i class="fa-solid fa-gauge-high"></i>
+                  </div>
+                  <div>
+                    <div class="font-semibold">Performance mindset</div>
+                    <div class="text-sm text-white/60 mt-1">Fast loading pages and SEO-friendly structure.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+                <div class="flex items-start gap-3">
+                  <div class="icon-badge" style="width:40px;height:40px;border-radius:14px;">
+                    <i class="fa-solid fa-handshake"></i>
+                  </div>
+                  <div>
+                    <div class="font-semibold">Client-first process</div>
+                    <div class="text-sm text-white/60 mt-1">Simple collaboration, feedback loops, and clear deliverables.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="graphic" class="mx-auto container-max px-4 sm:px-6 py-10 sm:py-14">
+      <div class="flex items-end justify-between gap-6 flex-wrap">
+        <div>
+          <h2 class="section-title text-3xl sm:text-4xl">Graphic Design <span class="grad-text">Services</span></h2>
+          <p class="mt-3 subtle max-w-2xl">Visual assets built to be consistent, scalable, and attention-grabbing across print and digital platforms.</p>
+        </div>
+        <a href="#contact" class="btn btn-ghost text-sm">
+          <i class="fa-solid fa-quote-left"></i>
+          <span>Get a Quote</span>
+        </a>
+      </div>
+
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="card rounded-3xl p-6 hover:bg-white/[0.07] transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="icon-badge"><i class="fa-solid fa-crown"></i></div>
+            <div>
+              <div class="font-bold">Logo Design</div>
+              <div class="text-sm text-white/60">Unique, memorable marks with clear usage rules.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card rounded-3xl p-6 hover:bg-white/[0.07] transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="icon-badge"><i class="fa-solid fa-file-lines"></i></div>
+            <div>
+              <div class="font-bold">Poster & Flyer Design</div>
+              <div class="text-sm text-white/60">Readable layouts designed to grab attention fast.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card rounded-3xl p-6 hover:bg-white/[0.07] transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="icon-badge"><i class="fa-brands fa-instagram"></i></div>
+            <div>
+              <div class="font-bold">Social Media Graphics</div>
+              <div class="text-sm text-white/60">Post templates, story sets, reels covers, ad creatives.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card rounded-3xl p-6 hover:bg-white/[0.07] transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="icon-badge"><i class="fa-solid fa-rectangle-ad"></i></div>
+            <div>
+              <div class="font-bold">Banner & Advertisement Design</div>
+              <div class="text-sm text-white/60">High-impact visuals optimized for different sizes.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card rounded-3xl p-6 hover:bg-white/[0.07] transition-colors sm:col-span-2 lg:col-span-1">
+          <div class="flex items-center gap-3">
+            <div class="icon-badge"><i class="fa-solid fa-gem"></i></div>
+            <div>
+              <div class="font-bold">Branding & Visual Identity</div>
+              <div class="text-sm text-white/60">Color, typography, guidelines, and cohesive brand style.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="web" class="mx-auto container-max px-4 sm:px-6 py-10 sm:py-14">
+      <div class="grid lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-5">
+          <h2 class="section-title text-3xl sm:text-4xl">Web Design <span class="grad-text">Services</span></h2>
+          <p class="mt-3 subtle">
+            Websites designed to look premium, load fast, and feel effortless on every device—built with modern UI/UX thinking and clean code.
+          </p>
+
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="pill text-xs"><i class="fa-solid fa-check mr-2"></i>Mobile-first</span>
+            <span class="pill text-xs"><i class="fa-solid fa-check mr-2"></i>SEO-friendly</span>
+            <span class="pill text-xs"><i class="fa-solid fa-check mr-2"></i>Fast layouts</span>
+            <span class="pill text-xs"><i class="fa-solid fa-check mr-2"></i>Clean UI</span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="card rounded-3xl p-6">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <div>
+                  <div class="font-bold">Responsive Website Design</div>
+                  <div class="text-sm text-white/60 mt-1">Pixel-clean layouts that adapt beautifully across devices.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card rounded-3xl p-6">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-code"></i></div>
+                <div>
+                  <div class="font-bold">HTML, CSS, Bootstrap Based Websites</div>
+                  <div class="text-sm text-white/60 mt-1">Structured, maintainable, and production-ready front-end builds.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card rounded-3xl p-6">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-bezier-curve"></i></div>
+                <div>
+                  <div class="font-bold">UI/UX Design</div>
+                  <div class="text-sm text-white/60 mt-1">Clear flow, strong hierarchy, and user-friendly interfaces.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card rounded-3xl p-6">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-id-card-clip"></i></div>
+                <div>
+                  <div class="font-bold">Portfolio & Business Websites</div>
+                  <div class="text-sm text-white/60 mt-1">A polished online presence that builds trust and credibility.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card rounded-3xl p-6 sm:col-span-2">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-rocket"></i></div>
+                <div>
+                  <div class="font-bold">Fast, SEO-friendly layouts</div>
+                  <div class="text-sm text-white/60 mt-1">Optimized structure, accessibility-minded components, and performance-first design.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    
+    <section id="ai-tools" class="mx-auto container-max px-4 sm:px-6 py-10 sm:py-14">
+      <div class="flex items-end justify-between gap-6 flex-wrap">
+        <div>
+          <h2 class="section-title text-3xl sm:text-4xl">AI Tools for <span class="grad-text">Graphic & Web Design</span></h2>
+          <p class="mt-3 subtle max-w-2xl">AI accelerates ideation and iteration—helping deliver professional results faster without sacrificing quality.</p>
+        </div>
+        <button id="openAiModal" class="btn btn-ghost text-sm" type="button">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>How AI helps</span>
+        </button>
+      </div>
+
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="card rounded-3xl p-6">
+          <div class="icon-badge"><i class="fa-solid fa-image"></i></div>
+          <div class="mt-3 font-bold">AI image generation tools</div>
+          <div class="mt-2 text-sm text-white/60">Quick concepts, backgrounds, product mock visuals, and style exploration.</div>
+        </div>
+        <div class="card rounded-3xl p-6">
+          <div class="icon-badge"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="mt-3 font-bold">AI logo & banner creators</div>
+          <div class="mt-2 text-sm text-white/60">Fast variations for direction-finding and client-friendly options.</div>
+        </div>
+        <div class="card rounded-3xl p-6">
+          <div class="icon-badge"><i class="fa-solid fa-palette"></i></div>
+          <div class="mt-3 font-bold">AI color & font selection</div>
+          <div class="mt-2 text-sm text-white/60">Better pairings with strong readability and brand consistency.</div>
+        </div>
+        <div class="card rounded-3xl p-6">
+          <div class="icon-badge"><i class="fa-solid fa-globe"></i></div>
+          <div class="mt-3 font-bold">AI website builders</div>
+          <div class="mt-2 text-sm text-white/60">Rapid prototypes and layout starting points to refine into final designs.</div>
+        </div>
+      </div>
+
+      <div class="mt-6 card rounded-3xl p-6 sm:p-7">
+        <div class="flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <div class="text-sm text-white/60">Benefits of Using AI in Design</div>
+            <div class="mt-1 text-xl font-extrabold tracking-tight">Speed + quality + creativity</div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="pill text-xs"><i class="fa-solid fa-bolt mr-2"></i>Faster work</span>
+            <span class="pill text-xs"><i class="fa-solid fa-award mr-2"></i>High-quality output</span>
+            <span class="pill text-xs"><i class="fa-solid fa-clock mr-2"></i>Time-saving</span>
+            <span class="pill text-xs"><i class="fa-solid fa-coins mr-2"></i>Cost-effective</span>
+            <span class="pill text-xs"><i class="fa-solid fa-rotate mr-2"></i>Easy revisions</span>
+            <span class="pill text-xs"><i class="fa-solid fa-seedling mr-2"></i>Beginner-friendly</span>
+          </div>
+        </div>
+
+        <div class="mt-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-bolt mr-2 text-white/80"></i>Faster design work</div>
+            <div class="text-sm text-white/60 mt-1">Generate options quickly and move faster from idea to final.</div>
+          </div>
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-award mr-2 text-white/80"></i>Professional output</div>
+            <div class="text-sm text-white/60 mt-1">Refined visuals with better consistency across assets.</div>
+          </div>
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-rotate mr-2 text-white/80"></i>Easy revisions</div>
+            <div class="text-sm text-white/60 mt-1">Quick iteration means feedback can be applied smoothly.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="career" class="mx-auto container-max px-4 sm:px-6 py-10 sm:py-14">
+      <div class="grid lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-5">
+          <h2 class="section-title text-3xl sm:text-4xl">Career & <span class="grad-text">Job Benefits</span></h2>
+          <p class="mt-3 subtle">
+            Graphic & Web Design is a high-demand skill with continuous growth—perfect for creatives who want flexible work options and strong earning potential.
+          </p>
+
+          <div class="mt-6 card rounded-3xl p-6">
+            <div class="flex items-start gap-3">
+              <div class="icon-badge"><i class="fa-solid fa-arrow-trend-up"></i></div>
+              <div>
+                <div class="font-bold">High-demand + continuous learning</div>
+                <div class="mt-1 text-sm text-white/60">
+                  New tools, trends, and platforms keep the field exciting—skills stay valuable across industries.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="card rounded-3xl p-6">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-laptop-code"></i></div>
+                <div>
+                  <div class="font-bold">Freelancing</div>
+                  <div class="text-sm text-white/60 mt-1">Work with multiple clients and build your own brand.</div>
+                </div>
+              </div>
+            </div>
+            <div class="card rounded-3xl p-6">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-house-laptop"></i></div>
+                <div>
+                  <div class="font-bold">Work from Home jobs</div>
+                  <div class="text-sm text-white/60 mt-1">Remote roles in design, marketing, and product teams.</div>
+                </div>
+              </div>
+            </div>
+            <div class="card rounded-3xl p-6">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-bullhorn"></i></div>
+                <div>
+                  <div class="font-bold">Digital marketing agencies</div>
+                  <div class="text-sm text-white/60 mt-1">Design ads, landing pages, and social content that converts.</div>
+                </div>
+              </div>
+            </div>
+            <div class="card rounded-3xl p-6">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-building"></i></div>
+                <div>
+                  <div class="font-bold">Startup & IT company jobs</div>
+                  <div class="text-sm text-white/60 mt-1">Branding, UI/UX, product visuals, and web interfaces.</div>
+                </div>
+              </div>
+            </div>
+            <div class="card rounded-3xl p-6 sm:col-span-2">
+              <div class="flex items-start gap-3">
+                <div class="icon-badge"><i class="fa-solid fa-earth-asia"></i></div>
+                <div>
+                  <div class="font-bold">International clients & online income</div>
+                  <div class="text-sm text-white/60 mt-1">Build global connections and earn through online platforms and direct clients.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    
+    <section id="why" class="mx-auto container-max px-4 sm:px-6 py-10 sm:py-14">
+      <div class="card rounded-3xl p-6 sm:p-8">
+        <div class="flex items-start justify-between gap-6 flex-wrap">
+          <div>
+            <h2 class="section-title text-3xl sm:text-4xl">Why Choose <span class="grad-text">Bhavya</span></h2>
+            <p class="mt-3 subtle max-w-2xl">A balanced approach: creativity, clean systems, and AI-assisted speed—built around your business goals.</p>
+          </div>
+          <a href="#contact" class="btn btn-primary text-sm">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Start a Project</span>
+          </a>
+        </div>
+
+        <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-wand-magic-sparkles mr-2 text-white/85"></i>Creative & modern approach</div>
+            <div class="text-sm text-white/60 mt-1">Designs aligned with trends while staying timeless and readable.</div>
+          </div>
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-microchip mr-2 text-white/85"></i>AI + Design knowledge</div>
+            <div class="text-sm text-white/60 mt-1">Smarter iterations, faster delivery, and more creative options.</div>
+          </div>
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-grip-lines mr-2 text-white/85"></i>Clean, professional layouts</div>
+            <div class="text-sm text-white/60 mt-1">Strong hierarchy, spacing, and typography for premium feel.</div>
+          </div>
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5 sm:col-span-2 lg:col-span-1">
+            <div class="font-semibold"><i class="fa-solid fa-user-check mr-2 text-white/85"></i>Client-focused solutions</div>
+            <div class="text-sm text-white/60 mt-1">Design choices that support your audience, message, and goals.</div>
+          </div>
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-shield-heart mr-2 text-white/85"></i>Reliable & scalable</div>
+            <div class="text-sm text-white/60 mt-1">Assets that work across platforms and grow with your brand.</div>
+          </div>
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-comment-dots mr-2 text-white/85"></i>Clear communication</div>
+            <div class="text-sm text-white/60 mt-1">Simple process, quick updates, and easy feedback cycles.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="mx-auto container-max px-4 sm:px-6 py-10 sm:py-14">
+      <div class="grid lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-5">
+          <h2 class="section-title text-3xl sm:text-4xl">Contact <span class="grad-text">Bhavya</span></h2>
+          <p class="mt-3 subtle">
+            Share your project idea, preferred style, and timeline. You’ll get a clear next step and a simple plan.
+          </p>
+
+          <div class="mt-6 grid gap-3">
+            <div class="card rounded-2xl p-4">
+              <div class="flex items-center gap-3">
+                <div class="icon-badge" style="width:42px;height:42px;border-radius:14px;">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div>
+                  <div class="text-sm text-white/60">Email</div>
+                  <div class="font-semibold" id="emailText">bhavya.designer@example.com</div>
+                </div>
+              </div>
+            </div>
+            <div class="card rounded-2xl p-4">
+              <div class="flex items-center gap-3">
+                <div class="icon-badge" style="width:42px;height:42px;border-radius:14px;">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+                <div>
+                  <div class="text-sm text-white/60">Availability</div>
+                  <div class="font-semibold">Open for projects</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-2">
+            <button id="prefillBrandBtn" class="btn btn-ghost text-sm" type="button">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Branding request</span>
+            </button>
+            <button id="prefillWebBtn" class="btn btn-ghost text-sm" type="button">
+              <i class="fa-solid fa-globe"></i>
+              <span>Website request</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="card rounded-3xl p-6 sm:p-7">
+            <div class="flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <div class="text-sm text-white/60">Simple Contact Form</div>
+                <div class="mt-1 text-xl font-extrabold tracking-tight">Let’s build something great</div>
+              </div>
+              <div class="pill text-xs">
+                <i class="fa-solid fa-lock mr-2"></i>Demo form (no backend)
+              </div>
+            </div>
+
+            <form id="contactForm" class="mt-6 grid gap-4" novalidate>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-sm text-white/70" for="name">Name</label>
+                  <input class="field mt-2" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+                </div>
+                <div>
+                  <label class="text-sm text-white/70" for="email">Email</label>
+                  <input class="field mt-2" id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+                </div>
+              </div>
+
+              <div>
+                <label class="text-sm text-white/70" for="message">Message</label>
+                <textarea class="field mt-2" id="message" name="message" rows="5" placeholder="Tell me about your project, style preferences, and timeline..." required></textarea>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 justify-between">
+                <button class="btn btn-primary justify-center" type="submit">
+                  <i class="fa-solid fa-paper-plane"></i>
+                  <span>Send Message</span>
+                </button>
+                <button id="clearFormBtn" class="btn btn-ghost justify-center" type="button">
+                  <i class="fa-solid fa-eraser"></i>
+                  <span>Clear</span>
+                </button>
+              </div>
+
+              <p class="text-xs text-white/50">
+                This is a front-end demo. To make it live, connect the form to email/API (e.g., Formspree, Netlify Forms, or a custom backend).
+              </p>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    
+    <footer class="mx-auto container-max px-4 sm:px-6 pb-10">
+      <div class="divider mb-6"></div>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="icon-badge" style="width:42px;height:42px;border-radius:14px;">
+            <i class="fa-solid fa-pen-nib"></i>
+          </div>
+          <div>
+            <div class="font-bold">Graphic & Web Design – By Bhavya</div>
+            <div class="text-sm text-white/60">Clean, modern design • AI-powered workflow • Mobile-friendly</div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 text-sm">
+          <a class="navlink" href="#about">About</a>
+          <a class="navlink" href="#graphic">Graphic</a>
+          <a class="navlink" href="#web">Web</a>
+          <a class="navlink" href="#ai-tools">AI Tools</a>
+          <a class="navlink" href="#career">Career</a>
+          <a class="navlink" href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <div class="mt-6 text-xs text-white/50">
+        © <span id="year"></span> Bhavya. All rights reserved.
+      </div>
+    </footer>
+  </main>
+
+  
+  <div id="aiModal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="aiTitle">
+    <div class="absolute inset-0 bg-black/55 backdrop-blur-sm"></div>
+    <div class="relative mx-auto container-max px-4 sm:px-6 py-10">
+      <div class="card rounded-3xl p-6 sm:p-7 max-w-2xl mx-auto">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <div id="aiTitle" class="text-xl font-extrabold tracking-tight">How AI supports design quality</div>
+            <div class="mt-2 text-sm text-white/60">
+              AI is used to speed up exploration and reduce repetitive work—then refined with strong design fundamentals:
+              hierarchy, typography, spacing, and usability.
+            </div>
+          </div>
+          <button id="closeAiModal" class="btn btn-ghost px-3" type="button" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="mt-6 grid gap-3">
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-lightbulb mr-2 text-white/85"></i>Ideation & variants</div>
+            <div class="text-sm text-white/60 mt-1">Generate multiple directions quickly, then select and refine the best.</div>
+          </div>
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-swatchbook mr-2 text-white/85"></i>Better systems</div>
+            <div class="text-sm text-white/60 mt-1">Consistent palettes and typography pairings to keep visuals cohesive.</div>
+          </div>
+          <div class="rounded-2xl p-5 border border-white/10 bg-white/5">
+            <div class="font-semibold"><i class="fa-solid fa-rocket mr-2 text-white/85"></i>Faster delivery</div>
+            <div class="text-sm text-white/60 mt-1">More time for polishing details, responsiveness, and UX improvements.</div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <a href="#contact" class="btn btn-primary justify-center">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Discuss a Project</span>
+          </a>
+          <button id="closeAiModal2" class="btn btn-ghost justify-center" type="button">
+            <i class="fa-solid fa-check"></i>
+            <span>Got it</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="toast" class="toast">
+    <div class="glass rounded-2xl p-4 border border-white/12">
+      <div class="flex items-start gap-3">
+        <div class="icon-badge" style="width:40px;height:40px;border-radius:14px;">
+          <i id="toastIcon" class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="flex-1">
+          <div id="toastTitle" class="font-semibold">Done</div>
+          <div id="toastMsg" class="text-sm text-white/60 mt-0.5">Action completed.</div>
+        </div>
+        <button id="toastClose" class="btn btn-ghost px-3 py-2" type="button" aria-label="Close toast">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    
+    $("#year").textContent = new Date().getFullYear();
+
+    
+    const menuBtn = $("#menuBtn");
+    const menuPanel = $("#menuPanel");
+    const setMenuOpen = (open) => {
+      menuPanel.classList.toggle("open", open);
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      menuBtn.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+    };
+    menuBtn.addEventListener("click", () => setMenuOpen(!menuPanel.classList.contains("open")));
+    $$("#menuPanel a").forEach(a => a.addEventListener("click", () => setMenuOpen(false)));
+
+    
+    const toast = $("#toast");
+    let toastTimer = null;
+    function showToast({title="Done", msg="Action completed.", icon="fa-circle-check"}){
+      $("#toastTitle").textContent = title;
+      $("#toastMsg").textContent = msg;
+      $("#toastIcon").className = "fa-solid " + icon;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+    $("#toastClose").addEventListener("click", () => toast.classList.remove("show"));
+
+    
+    const emailValue = "bhavya.designer@example.com";
+    async function copyEmail(){
+      try{
+        await navigator.clipboard.writeText(emailValue);
+        showToast({title:"Copied", msg:"Email copied to clipboard.", icon:"fa-copy"});
+      }catch(e){
+        showToast({title:"Copy failed", msg:"Your browser blocked clipboard access.", icon:"fa-triangle-exclamation"});
+      }
+    }
+    $("#copyEmailBtn").addEventListener("click", copyEmail);
+
+    
+    const msg = $("#message");
+    $("#prefillBrandBtn").addEventListener("click", () => {
+      msg.value = "Hi Bhavya,\n\nI need Branding & Visual Identity (logo + color palette + typography). My business is: \nTarget audience: \nPreferred style: \nTimeline: \n\nThank you!";
+      msg.focus();
+      showToast({title:"Prefilled", msg:"Branding message added.", icon:"fa-pen-to-square"});
+    });
+    $("#prefillWebBtn").addEventListener("click", () => {
+      msg.value = "Hi Bhavya,\n\nI need a responsive website design. Type: (portfolio/business)\nPages/sections needed: \nReference websites: \nPreferred colors/style: \nTimeline: \n\nThank you!";
+      msg.focus();
+      showToast({title:"Prefilled", msg:"Website message added.", icon:"fa-globe"});
+    });
+
+    
+    $("#clearFormBtn").addEventListener("click", () => {
+      $("#contactForm").reset();
+      showToast({title:"Cleared", msg:"Form fields cleared.", icon:"fa-eraser"});
+    });
+
+    
+    $("#contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = $("#name").value.trim();
+      const email = $("#email").value.trim();
+      const message = $("#message").value.trim();
+
+      if(!name || !email || !message){
+        showToast({title:"Missing info", msg:"Please fill in name, email, and message.", icon:"fa-triangle-exclamation"});
+        return;
+      }
+
+      
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        showToast({title:"Invalid email", msg:"Please enter a valid email address.", icon:"fa-triangle-exclamation"});
+        $("#email").focus();
+        return;
+      }
+
+      showToast({title:"Message ready", msg:"Demo form submitted. Connect a backend to receive messages.", icon:"fa-paper-plane"});
+      $("#contactForm").reset();
+    });
+
+    
+    const aiModal = $("#aiModal");
+    const openAiModal = () => {
+      aiModal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    };
+    const closeAiModal = () => {
+      aiModal.classList.add("hidden");
+      document.body.style.overflow = "";
+    };
+    $("#openAiModal").addEventListener("click", openAiModal);
+    $("#closeAiModal").addEventListener("click", closeAiModal);
+    $("#closeAiModal2").addEventListener("click", closeAiModal);
+    aiModal.addEventListener("click", (e) => { if(e.target === aiModal) closeAiModal(); });
+    document.addEventListener("keydown", (e) => { if(e.key === "Escape" && !aiModal.classList.contains("hidden")) closeAiModal(); });
+
+    
+    let accentMode = 0;
+    function setAccent(mode){
+      const r = document.documentElement;
+      if(mode === 0){
+        r.style.setProperty("--brandA", "#8B5CF6");
+        r.style.setProperty("--brandB", "#22D3EE");
+        r.style.setProperty("--brandC", "#34D399");
+      }else if(mode === 1){
+        r.style.setProperty("--brandA", "#FB7185");
+        r.style.setProperty("--brandB", "#F59E0B");
+        r.style.setProperty("--brandC", "#22C55E");
+      }else{
+        r.style.setProperty("--brandA", "#60A5FA");
+        r.style.setProperty("--brandB", "#A78BFA");
+        r.style.setProperty("--brandC", "#2DD4BF");
+      }
+      showToast({title:"Accent updated", msg:"Visual accent refreshed.", icon:"fa-wand-magic-sparkles"});
+    }
+    function cycleAccent(){
+      accentMode = (accentMode + 1) % 3;
+      setAccent(accentMode);
+    }
+    $("#themeBtn").addEventListener("click", cycleAccent);
+    $("#themeBtnMobile").addEventListener("click", () => { cycleAccent(); setMenuOpen(false); });
+
+    
+    const sections = ["about","graphic","web","ai-tools","career","contact"].map(id => document.getElementById(id));
+    const navLinks = $$(".navlink").filter(a => a.getAttribute("href")?.startsWith("#"));
+    const linkById = new Map(navLinks.map(a => [a.getAttribute("href").slice(1), a]));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          navLinks.forEach(a => a.classList.remove("active"));
+          const link = linkById.get(entry.target.id);
+          if(link) link.classList.add("active");
+        }
+      });
+    }, { rootMargin: "-35% 0px -55% 0px", threshold: 0.01 });
+
+    sections.forEach(s => s && observer.observe(s));
+  </script>
+</body>
+</html>
